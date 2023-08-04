@@ -1,4 +1,5 @@
 using TicketsSellSystem.Domain.Common.Models;
+using TicketsSellSystem.Domain.Common.ValueObjects;
 using TicketsSellSystem.Domain.EventAggregate.ValueObjects;
 
 namespace TicketsSellSystem.Domain.EventAggregate;
