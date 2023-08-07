@@ -2,23 +2,23 @@ using TicketsSellSystem.Domain.Common.Models;
 
 namespace TicketsSellSystem.Domain.EventAggregate.ValueObjects;
 
-public class EventName : ValueObject
+public class EventDescription : ValueObject
 {
     private const int MinLength = 3;
 
-    private const int MaxLength = 150;
+    private const int MaxLength = 600;
 
-    private EventName(string value)
+    private EventDescription(string value)
     {
         ArgumentNullException.ThrowIfNull(value, nameof(value));
 
         value = value.Trim();
 
-        if (value.Length < MinLength || value.Length > MaxLength)
+        if (value.Length is < MinLength or > MaxLength)
         {
-            string exceptionMessage =
-                $"Event name must have a minimum of {MinLength} characters and a maximum of {MaxLength} characters";
-            throw new ArgumentException(exceptionMessage, nameof(value));
+            throw new ArgumentException(
+                $"Event description must have a maximum of {MaxLength} characters",
+                nameof(value));
         }
 
         this.Value = value;
@@ -26,12 +26,12 @@ public class EventName : ValueObject
 
     public string Value { get; private set; }
 
-    public static implicit operator EventName(string value)
+    public static implicit operator EventDescription(string value)
     {
         return new(value);
     }
 
-    public static EventName Create(string value)
+    public static EventDescription Create(string value)
     {
         return new(value);
     }
