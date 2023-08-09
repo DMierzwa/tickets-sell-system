@@ -1,7 +1,7 @@
 using MediatR;
-using TicketsSellSystem.Application.Event.Common;
+using TicketsSellSystem.Application.Events.Common;
 
-namespace TicketsSellSystem.Application.Event.Commands.CreateEvent;
+namespace TicketsSellSystem.Application.Events.Commands.CreateEvent;
 
 public record CreateEventCommand(
     string Name,

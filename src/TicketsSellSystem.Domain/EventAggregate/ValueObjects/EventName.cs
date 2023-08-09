@@ -18,7 +18,7 @@ public class EventName : ValueObject
         {
             string exceptionMessage =
                 $"Event name must have a minimum of {MinLength} characters and a maximum of {MaxLength} characters";
-            throw new ArgumentException(exceptionMessage, nameof(value));
+            throw new ArgumentException(exceptionMessage);
         }
 
         this.Value = value;

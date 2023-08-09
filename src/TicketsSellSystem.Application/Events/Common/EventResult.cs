@@ -1,4 +1,4 @@
-namespace TicketsSellSystem.Application.Event.Common;
+namespace TicketsSellSystem.Application.Events.Common;
 
 public record EventResult(
     Guid Id,

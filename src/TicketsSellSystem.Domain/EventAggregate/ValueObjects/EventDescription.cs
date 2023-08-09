@@ -16,9 +16,9 @@ public class EventDescription : ValueObject
 
         if (value.Length is < MinLength or > MaxLength)
         {
-            throw new ArgumentException(
-                $"Event description must have a maximum of {MaxLength} characters",
-                nameof(value));
+            string exceptionMessage =
+                $"Event description must have a minimum of {MinLength} characters and a maximum of {MaxLength} characters";
+            throw new ArgumentException(exceptionMessage);
         }
 
         this.Value = value;
