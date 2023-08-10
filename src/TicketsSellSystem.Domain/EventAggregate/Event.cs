@@ -1,11 +1,14 @@
 using TicketsSellSystem.Domain.Common.Models;
 using TicketsSellSystem.Domain.Common.ValueObjects;
+using TicketsSellSystem.Domain.EventAggregate.Entities;
 using TicketsSellSystem.Domain.EventAggregate.ValueObjects;
 
 namespace TicketsSellSystem.Domain.EventAggregate;
 
 public class Event : AggregateRoot<EventId>
 {
+    private readonly List<EventSchedule> _eventSchedules = new();
+
     private Event(
         EventId eventId,
         EventName name,
@@ -20,6 +23,8 @@ public class Event : AggregateRoot<EventId>
 
     public EventDescription Description { get; private set; }
 
+    public IReadOnlyList<EventSchedule> EventSchedules => this._eventSchedules.ToList();
+
     public static Event Create(
         EventName name,
         EventDescription description)
@@ -29,5 +34,10 @@ public class Event : AggregateRoot<EventId>
                 EventId.CreateUnique(),
                 name,
                 description);
+    }
+
+    public void AddEventSchedule(EventSchedule eventSchedule)
+    {
+        this._eventSchedules.Add(eventSchedule);
     }
 }

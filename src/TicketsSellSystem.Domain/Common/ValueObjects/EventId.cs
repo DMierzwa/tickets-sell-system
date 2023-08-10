@@ -11,6 +11,11 @@ public class EventId : ValueObject
 
     public Guid Value { get; private set; }
 
+    public static EventId Create(Guid value)
+    {
+        return new EventId(value);
+    }
+
     public static EventId CreateUnique()
     {
         return new EventId(Guid.NewGuid());

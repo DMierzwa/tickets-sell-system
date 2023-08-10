@@ -3,7 +3,7 @@ using TicketsSellSystem.Application.Events.Commands.CreateEvent;
 using TicketsSellSystem.Application.Events.Common;
 using TicketsSellSystem.Tests.Event.TestUtils;
 
-namespace TicketSellSystem.Tests.Event.Commands.CreateEvent;
+namespace TicketsSellSystem.Tests.Event.Commands.CreateEvent;
 
 public class CreateEventCommandHandlerTests
 {
