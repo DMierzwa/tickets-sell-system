@@ -1,6 +1,6 @@
 using TicketsSellSystem.Domain.Common.Models;
 
-namespace TicketsSellSystem.Domain.Common.ValueObjects;
+namespace TicketsSellSystem.Domain.EventAggregate.ValueObjects;
 
 public class EventId : ValueObject
 {
