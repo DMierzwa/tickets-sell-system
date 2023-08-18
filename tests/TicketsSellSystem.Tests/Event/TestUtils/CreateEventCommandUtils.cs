@@ -5,16 +5,16 @@ namespace TicketsSellSystem.Tests.Event.TestUtils;
 
 public static class CreateEventCommandUtils
 {
-    public static CreateEventCommand CreateEventCommand()
+    public static CreateEventCommand CreateValidEventCommand()
     {
-        string name = Constants.Event.Name;
-        string description = Constants.Event.Description;
+        string name = GeneratedUtils.RandomString(15);
+        string description = GeneratedUtils.RandomString(40);
 
         return new CreateEventCommand(name, description);
     }
 
-    public static CreateEventCommand CreateEventCommandWithoutName()
+    internal static CreateEventCommand CreateEventCommandWithInvalidName(string name)
     {
-        return CreateEventCommand() with { Name = string.Empty };
+        return CreateValidEventCommand() with { Name = name };
     }
 }

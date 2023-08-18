@@ -1,7 +1,6 @@
 using MediatR;
-using TicketsSellSystem.Domain.Common.ValueObjects;
-using TicketsSellSystem.Domain.EventAggregate;
 using TicketsSellSystem.Domain.EventAggregate.Entities;
+using TicketsSellSystem.Domain.EventAggregate.ValueObjects;
 
 namespace TicketsSellSystem.Application.Events.Commands.CreateEventSchedule;
 
