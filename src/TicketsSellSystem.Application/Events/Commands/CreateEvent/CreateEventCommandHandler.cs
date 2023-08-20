@@ -10,14 +10,26 @@ public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, Res
 {
     public async Task<Result<EventResult>> Handle(CreateEventCommand request, CancellationToken cancellationToken)
     {
-        Result<EventName> eventNameResult = await EventName.CreateAsync(request.Name);
+        Task<Result<EventName>> eventNameTask = EventName.CreateAsync(request.Name);
+        Task<Result<EventDescription>> eventDescriptionTask = EventDescription.CreateAsync(request.Description);
 
-        if (!eventNameResult.IsOk)
+        List<Task> tasks = new()
         {
-            return Result<EventResult>.Error(eventNameResult.ErrorMessage);
+            eventNameTask,
+            eventDescriptionTask,
+        };
+        await Task.WhenAll(tasks);
+
+        Result<EventName> eventNameResult = await eventNameTask;
+        Result<EventDescription> eventDescriptionResult = await eventDescriptionTask;
+
+        Result combinedResults = Result.CombinedResults(eventNameResult, eventDescriptionResult);
+        if (!combinedResults.IsOk)
+        {
+            return Result<EventResult>.ErrorWithCombinedErrorMessages(combinedResults);
         }
 
-        Event @event = Event.Create(eventNameResult.Value, request.Description);
+        Event @event = Event.Create(eventNameResult.Value, eventDescriptionResult.Value);
 
         EventResult result = new(
             @event.Id.Value,

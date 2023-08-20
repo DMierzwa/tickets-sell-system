@@ -13,6 +13,11 @@ public static class CreateEventCommandUtils
         return new CreateEventCommand(name, description);
     }
 
+    internal static CreateEventCommand CreateEventCommandWithInvalidDescription(string description)
+    {
+        return CreateValidEventCommand() with { Description = description };
+    }
+
     internal static CreateEventCommand CreateEventCommandWithInvalidName(string name)
     {
         return CreateValidEventCommand() with { Name = name };

@@ -1,27 +1,37 @@
 namespace TicketsSellSystem.Domain.Common.Models;
 
-public readonly struct Result<TValue>
+public record class Result<TValue> : Result
 {
-    public readonly TValue Value;
-    public readonly string ErrorMessage;
-
-    private readonly bool _isOk;
-
     private Result(
         TValue value,
         string errorMessage,
         bool isOk)
+        : this(
+            value,
+            errorMessage,
+            isOk,
+            Array.Empty<string>())
     {
-        this.Value = value;
-        this.ErrorMessage = errorMessage;
-        this._isOk = isOk;
     }
 
-    public bool IsOk => this._isOk;
+    private Result(
+        TValue value,
+        string errorMessage,
+        bool isOk,
+        string[] combinedErrorMessages)
+        : base(
+            errorMessage,
+            isOk,
+            combinedErrorMessages)
+    {
+        this.Value = value;
+    }
+
+    public TValue Value { get; private set; }
 
     public static implicit operator Result<TValue>(TValue value)
     {
-        return new(value, string.Empty, true);
+        return Ok(value);
     }
 
     public static Result<TValue> Ok(TValue value)
@@ -29,8 +39,17 @@ public readonly struct Result<TValue>
         return new(value, string.Empty, true);
     }
 
-    public static Result<TValue> Error(string message)
+    public static new Result<TValue> Error(string message)
     {
-        return new(default!, message, false);
+        return new Result<TValue>(default!, message, false);
+    }
+
+    public static new Result<TValue> ErrorWithCombinedErrorMessages(Result result)
+    {
+        return new Result<TValue>(
+            default!,
+            result.ErrorMessage,
+            false,
+            result.CombinedErrorMessages);
     }
 }
